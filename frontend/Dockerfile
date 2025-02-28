@@ -1,4 +1,19 @@
-FROM nginx:latest
+FROM nginx:stable-alpine3.20-perl
+RUN mkdir -p /var/cache/nginx/client_temp && \
+        mkdir -p /var/cache/nginx/proxy_temp && \
+        mkdir -p /var/cache/nginx/fastcgi_temp && \
+        mkdir -p /var/cache/nginx/uwsgi_temp && \
+        mkdir -p /var/cache/nginx/scgi_temp && \
+        chown -R nginx:nginx /var/cache/nginx && \
+        chown -R nginx:nginx /etc/nginx/ && \
+        chmod -R 755 /etc/nginx/ && \
+        chown -R nginx:nginx /var/log/nginx
+
+RUN mkdir -p /etc/nginx/ssl/ && \
+    chown -R nginx:nginx /etc/nginx/ssl/ && \
+    chmod -R 755 /etc/nginx/ssl/
+
 RUN rm -rf /usr/share/nginx/html/index.html
 COPY code  /usr/share/nginx/html/index.html
 COPY nginx.conf /etc/nginx/nginx.conf
+USER nginx
