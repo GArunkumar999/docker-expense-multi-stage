@@ -17,3 +17,4 @@ RUN rm -rf /usr/share/nginx/html/index.html
 COPY code  /usr/share/nginx/html/index.html
 COPY nginx.conf /etc/nginx/nginx.conf
 USER nginx
+CMD ["nginx", "-g", "daemon off;"]
