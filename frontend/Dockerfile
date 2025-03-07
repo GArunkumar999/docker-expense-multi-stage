@@ -1,5 +1,11 @@
 FROM nginx:stable-alpine3.20-perl
 
+
+# Remove default index.html
+RUN rm -rf /usr/share/nginx/html/index.html
+RUN rm -rf /etc/nginx/nginx.conf
+RUN rm -rf /etc/nginx/conf.d/default.conf
+
 # Create necessary directories for nginx cache and logs
 RUN mkdir -p /var/cache/nginx/client_temp && \
     mkdir -p /var/cache/nginx/proxy_temp && \
@@ -16,16 +22,13 @@ RUN mkdir -p /etc/nginx/ssl/ && \
     chown -R nginx:nginx /etc/nginx/ssl/ && \
     chmod -R 755 /etc/nginx/ssl/
 
-# Remove default index.html
-RUN rm -rf /usr/share/nginx/html/index.html
-RUN rm -rf /etc/nginx/conf.d/default.conf
-
-# Copy custom content and configuration
-COPY code /usr/share/nginx/html/index.html
-COPY nginx.conf /etc/nginx/nginx.conf
 
 # Ensure nginx has proper permissions for /run/nginx.pid
 RUN mkdir -p /run && chown -R nginx:nginx /run
+
+# Copy custom content and configuration
+COPY code /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/nginx.conf 
 
 # Switch to nginx user after setting up permissions
 USER nginx
