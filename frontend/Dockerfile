@@ -34,4 +34,4 @@ COPY nginx.conf /etc/nginx/nginx.conf
 USER nginx
 
 # Run nginx in the foreground
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
