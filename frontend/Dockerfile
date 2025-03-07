@@ -18,6 +18,7 @@ RUN mkdir -p /etc/nginx/ssl/ && \
 
 # Remove default index.html
 RUN rm -rf /usr/share/nginx/html/index.html
+RUN rm -rf /etc/nginx/conf.d/default.conf
 
 # Copy custom content and configuration
 COPY code /usr/share/nginx/html/index.html
