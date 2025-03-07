@@ -31,7 +31,7 @@ COPY code /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf 
 
 # Switch to nginx user after setting up permissions
-USER expense
+USER nginx
 
 # Run nginx in the foreground
 #CMD ["nginx", "-g", "daemon off;"]
